@@ -18,7 +18,7 @@ The dashboard is created using Google Data Studio.
 
 ## Dashboard
 
-<img src="https://github.com/joyceannie/Reddit_Data_Pipeline/tree/main/images/data_analysis.png">
+![Dashboard image](https://github.com/joyceannie/Reddit_Data_Pipeline/blob/37abba35138a12c808fa49e4f8051083489e0f40/images/data_analysis.png "Dashboard Image")
 
 ## Setup
 
