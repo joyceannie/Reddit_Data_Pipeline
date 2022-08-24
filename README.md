@@ -6,7 +6,7 @@ The dashboard is created using Google Data Studio.
 
 ## Architecture
 
-![workflow image](https://github.com/joyceannie/Reddit_Data_Pipeline/tree/main/images/Reddit Data Pipeline.drawio.png "Workflow Image")
+![workflow image](https://github.com/joyceannie/Reddit_Data_Pipeline/blob/e835b89c08db335c5ad3832a65bf32fe605eff17/images/workflow.png "Workflow Image")
 
 1. Extract the data using [Reddit API](https://www.reddit.com/dev/api/)
 2. Create AWS resources with Terraform
