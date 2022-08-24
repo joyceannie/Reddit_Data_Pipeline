@@ -6,7 +6,7 @@ The dashboard is created using Google Data Studio.
 
 ## Architecture
 
-<img src="https://github.com/joyceannie/Reddit_Data_Pipeline/tree/main/images/Reddit Data Pipeline.drawio.png" width=70% height=70%>
+<img src="https://github.com/joyceannie/Reddit_Data_Pipeline/tree/main/images/Reddit Data Pipeline.drawio.png">
 
 1. Extract the data using [Reddit API](https://www.reddit.com/dev/api/)
 2. Create AWS resources with Terraform
@@ -18,7 +18,7 @@ The dashboard is created using Google Data Studio.
 
 ## Dashboard
 
-<img src="https://github.com/joyceannie/Reddit_Data_Pipeline/tree/main/images/data_analysis.png" width=70% height=70%>
+<img src="https://github.com/joyceannie/Reddit_Data_Pipeline/tree/main/images/data_analysis.png">
 
 ## Setup
 
