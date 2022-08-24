@@ -1,12 +1,12 @@
 # REDDIT DATA PIPELINE
 The purpose of the project is to create a data pipeline to extract data from Reddit API and create a dashboard to analyse the data.
-The data is extracted from the subreddit [r/Python](https://www.reddit.com/r/Python/)
-The data is extractec daily and uploaded to S3 buckets, and copied to Redshift. 
+The data is extracted from the subreddit [r/Python](https://www.reddit.com/r/Python/).
+The data is extracted daily and uploaded to S3 buckets, and copied to Redshift. 
 The dashboard is created using Google Data Studio.
 
 ## Architecture
 
-<img src="https://github.com/joyceannie/Reddit_Data_Pipeline/tree/main/images/Reddit Data Pipeline.drawio.png">
+![workflow image](https://github.com/joyceannie/Reddit_Data_Pipeline/tree/main/images/Reddit Data Pipeline.drawio.png "Workflow Image")
 
 1. Extract the data using [Reddit API](https://www.reddit.com/dev/api/)
 2. Create AWS resources with Terraform
