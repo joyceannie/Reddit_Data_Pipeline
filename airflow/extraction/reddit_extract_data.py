@@ -1,4 +1,3 @@
-from importlib.metadata import PathDistribution
 import praw
 import sys
 import pathlib
@@ -19,7 +18,7 @@ CLIENT_ID = parser.get('reddit_config', 'client_id')
 SECRET = parser.get('reddit_config', 'secret')
 
 # Options for extracting data from PRAW
-SUBREDDIT = 'dataengineering'
+SUBREDDIT = 'Python'
 TIME_FILTER = 'day'
 LIMIT = None
 
