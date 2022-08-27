@@ -64,6 +64,148 @@ aws_access_key_id = XXXX
 aws_secret_access_key = XXXX
 ```
 
+### IaC using Terraform
+
+We are using [Terraform](https://learn.hashicorp.com/terraform?utm_source=terraform_io)  to setup and destroy our cloud resources using code.
+We are creating the following resources
+
+ * Create S3 bucket: Used for storage
+
+ * Create Redshift Cluster: Columnar data warehouse provided by AWS. 
+
+ * IAM Role for Redshift: Role assigns Redshift the permission to read data from S3 buckets.
+
+ * Security Group: Applied to Redshift to allow all incoming traffic so the dashboard can connect to it. In a real production environment, you should not allow all the traffic into your resource.
+
+
+ Follow the below steps to create the resources
+
+  1. Install terraform by following the [instructions](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+
+  2. Change into `terraform` directory.
+
+  ```
+  cd terraform
+  ```
+
+  3. Edit `variables.tf` file. Fill in the default parameters for Redshift DB password, S3 bucket name and region.
+
+  4. Download the AWS plugin by running the below command from the `terraform` directory.
+
+  ```
+  terraform init
+  ```
+
+  5. Create a plan based on the `main.tf` and execute the planned changes to create AWS resources.
+
+  ```
+  terraform apply
+  ```
+
+  6. RUn this command to destroy all the resources after the whole project is completed, and no longer in use. 
+
+  ```
+  terraform destroy
+  ```
+  After yopu complete the steps, the resources will be visible in the AWS console.
+
+### Configuration
+
+* Setup a configuration file `configuration.conf` under `airflow/extraction/` folder.
+
+* Fill in all the configuration variables in the config file. 
+
+```
+[aws_config]
+bucket_name = XXXXX
+redshift_username = awsuser
+redshift_password = XXXXX
+redshift_hostname =  XXXXX
+redshift_role = RedShiftLoadRole
+redshift_port = 5439
+redshift_database = dev
+account_id = XXXXX
+aws_region = XXXXX
+
+[reddit_config]
+secret = XXXXX
+developer = XXXXX
+name = XXXXX
+client_id = XXXXX
+```
+
+### Docker and Airflow
+
+The pipeline is scheduled to get executed once every day using Airflow. There are 3 scripts in the extraction folder.
+
+1. `reddit_extract_data.py` which extract Reddit data and saves it to csv file.
+
+2. `s3_data_upload_etl.py` which uploads the csv file to the S3 bucket.
+
+3. `redshift_data_upload_etl.py` which copies the data from S3 bucket to Redshift cluster.
+
+The script `etl_reddit_pipeline.py` in `airflow\dags` folder is the DAG which runs daily to execute the above three files using Bash commands.
+
+In order to set up the pipeline, first install Docker and Docker Compose. All the services needed for Airflow are defined in the `docker-compose.yaml` file. The `volumes` parameter is updated so that the local file system is connected to docker containers. The AWS  credentials are also mounted to the docker containers as ready only. 
+
+
+Docker is used for containerization. 
+All services needed for Airflow is defined in `docker-compose.yaml` file. 
+
+In order to run Airflow, follow the below commands.
+If you are runnning on Linux, run the following commands.
+
+```
+cd airflow
+
+# Create folders required by airflow. 
+# dags folder has already been created, and 
+# contains the dag script utilised by Airflow
+mkdir -p ./logs ./plugins
+
+# This Airflow quick-start needs to know your
+# host user id
+echo -e "AIRFLOW_UID=$(id -u)" > .env
+```
+
+Initialize the airflow database. This will take a few minutes. 
+```
+sudo docker-compose up airflow-init
+```
+
+Create the airflow containers. This will take some time to rum.
+```
+sudo docker-compose up
+```
+Now, you can login at  http://localhost:8080.
+
+Use the following command to shut down the container.
+
+```
+docker-compose down
+```
+
+Or if you want stop and delete containers, delete volumes with database data and download images, run the following. This can be useful if you want to remove everything and start from scratch. 
+
+```
+docker-compose down --volumes --rmi all
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
